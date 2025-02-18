@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue';
 
-import { computed, shallowRef, useSlots, watchEffect } from 'vue';
+import { NScrollbar } from 'naive-ui';
 
-import { useScrollLock } from '@vueuse/core';
-
-import { SidebarCollapseButton, SidebarFixedButton } from './widgets';
+import SidebarCollapseButton from './sidebar-collapse-button.vue';
+import SidebarFixedButton from './sidebar-fixed-button.vue';
 
 interface Props {
   /**
@@ -104,9 +103,7 @@ const expandOnHover = defineModel<boolean>('expandOnHover');
 const extraVisible = defineModel<boolean>('extraVisible');
 
 const isLocked = useScrollLock(document.body);
-const slots = useSlots();
-
-const asideRef = shallowRef<HTMLDivElement | null>();
+const slots = useSlots() as ReturnType<typeof useSlots>;
 
 const hiddenSideStyle = computed((): CSSProperties => calcMenuWidthStyle(true));
 
@@ -274,7 +271,6 @@ function handleMouseleave() {
     <NScrollbar :style="contentStyle" shadow shadow-border>
       <slot></slot>
     </NScrollbar>
-
     <div :style="collapseStyle"></div>
     <SidebarCollapseButton
       v-if="showCollapseButton && !isSidebarMixed"
@@ -304,3 +300,5 @@ function handleMouseleave() {
     </div>
   </aside>
 </template>
+
+<style lang="" scoped></style>

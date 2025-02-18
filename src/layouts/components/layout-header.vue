@@ -40,7 +40,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {});
 
-const slots = useSlots();
+const slots = useSlots() as ReturnType<typeof useSlots>;
 
 const style = computed((): CSSProperties => {
   const { fullWidth, height, show } = props;
