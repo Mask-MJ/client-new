@@ -79,8 +79,8 @@ export default defineConfigWithVueTs(
       'default-case-last': 'error',
       'dot-notation': ['error', { allowKeywords: true }],
       eqeqeq: ['error', 'always'],
-      'keyword-spacing': 'off',
 
+      'keyword-spacing': 'off',
       'new-cap': ['error', { capIsNew: false, newIsCap: true, properties: true }],
       'no-alert': 'error',
       'no-array-constructor': 'error',
@@ -186,14 +186,6 @@ export default defineConfigWithVueTs(
       'no-unreachable-loop': 'error',
       'no-unsafe-finally': 'error',
       'no-unsafe-negation': 'error',
-      'no-unused-expressions': [
-        'error',
-        {
-          allowShortCircuit: true,
-          allowTaggedTemplates: true,
-          allowTernary: true,
-        },
-      ],
       'no-unused-vars': [
         'error',
         {
@@ -350,6 +342,24 @@ export default defineConfigWithVueTs(
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
+
+  {
+    files: ['**/*.{ts,mts,tsx,vue}'],
+    name: 'app/files-to-lint',
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
+  {
+    ...pluginVitest.configs.recommended,
+    files: ['src/**/__tests__/*'],
+  },
+
+  {
+    ...pluginPlaywright.configs['flat/recommended'],
+    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
+  },
+  skipFormatting,
   {
     files: ['**/*.?([cm])[jt]s?(x)'],
     languageOptions: {
@@ -384,6 +394,7 @@ export default defineConfigWithVueTs(
 
       // '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
       '@typescript-eslint/consistent-type-definitions': 'off',
+
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-empty-function': [
@@ -408,23 +419,6 @@ export default defineConfigWithVueTs(
       'unused-imports/no-unused-vars': 'off',
     },
   },
-  {
-    files: ['**/*.{ts,mts,tsx,vue}'],
-    name: 'app/files-to-lint',
-    rules: {
-      'vue/multi-word-component-names': 'off',
-    },
-  },
-  {
-    ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
-  },
-
-  {
-    ...pluginPlaywright.configs['flat/recommended'],
-    files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
-  },
-  skipFormatting,
   {
     plugins: {
       prettier: pluginPrettier,

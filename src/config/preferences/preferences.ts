@@ -4,6 +4,7 @@ import type { Preferences } from './types';
 
 import { markRaw, reactive, readonly, watch } from 'vue';
 
+import { isMacOs } from '@/utils';
 import { breakpointsTailwind, useBreakpoints, useDebounceFn, useStorage } from '@vueuse/core';
 import { merge } from 'lodash-es';
 
@@ -138,8 +139,7 @@ class PreferenceManager {
 
   private initPlatform() {
     const dom = document.documentElement;
-    const isMacOs = /macintosh|mac os x/i.test(navigator.userAgent);
-    dom.dataset.platform = isMacOs ? 'macOs' : 'window';
+    dom.dataset.platform = isMacOs() ? 'macOs' : 'window';
   }
 
   /**
